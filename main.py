@@ -1,18 +1,18 @@
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 from time import sleep
 from SeleniumDriver import init_webdriver
-from selenium import webdriver
 
 
 class NYTSpellingBeeBot:
     driver: WebDriver = init_webdriver()
     required_letter: str
-    other_letters = []
-    all_words = []
-    valid_words = []
-    invalid_letters = []
+    other_letters: list = []
+    all_words: list = []
+    valid_words: list = []
+    invalid_letters: list = []
 
     def __init__(self):
         try:
@@ -87,17 +87,18 @@ class NYTSpellingBeeBot:
 
     # submit all valid words
     def submit_words(self):
+        # initialize action chains object
+        actions = ActionChains(self.driver)
+
         for word in self.valid_words:
             # type the word and press enter
-            webdriver.ActionChains(self.driver).send_keys(word).send_keys(
-                Keys.ENTER).perform()
+            actions.send_keys(word).send_keys(Keys.ENTER).perform()
 
             # backspace the length of the word
             # ex if word is "hello" backspace 5 times
             # used in case word is not valid according to NYT
             for _ in range(len(word)):
-                webdriver.ActionChains(self.driver).send_keys(
-                    Keys.BACKSPACE).perform()
+                actions.send_keys(Keys.BACKSPACE).perform()
 
 
 if __name__ == "__main__":
