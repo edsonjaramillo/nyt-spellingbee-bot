@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from time import sleep
-from SeleniumDriver import init_webdriver
+from seleniumdriver import init_webdriver
 
 
 class NYTSpellingBeeBot:
