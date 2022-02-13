@@ -42,8 +42,8 @@ class NYTSpellingBeeBot:
 
     def open_url(self) -> None:
         """Opens the url"""
-        url = "https://www.nytimes.com/puzzles/spelling-bee"
-        self._driver.get(url)
+        URL = "https://www.nytimes.com/puzzles/spelling-bee"
+        self._driver.get(URL)
         sleep(3)
 
     def click_play(self) -> None:
@@ -55,11 +55,11 @@ class NYTSpellingBeeBot:
         """Gets the 7 available letters from the puzzle, the first letter is the required letter"""
         letters = self._driver.find_elements(By.CLASS_NAME, "cell-letter")
 
-        for index, letter in enumerate(letters):
-            if index == 0:
-                self._required_letter = letter.text.lower()
+        for INDEX, LETTER in enumerate(letters):
+            if INDEX == 0:
+                self._required_letter = LETTER.text.lower()
             else:
-                self._other_letters.append(letter.text.lower())
+                self._other_letters.append(LETTER.text.lower())
 
     def get_all_words(self) -> None:
         """Reads all words from the words text file"""
@@ -68,9 +68,9 @@ class NYTSpellingBeeBot:
 
     def get_valid_words(self) -> None:
         """Gets all valid words from the words text file by using the is_valid_word function"""
-        for word in self._all_words:
-            if self.is_valid_word(word):
-                self._valid_words.append(word)
+        for WORD in self._all_words:
+            if self.is_valid_word(WORD):
+                self._valid_words.append(WORD)
 
     def is_valid_word(self, word: str) -> bool:
         """Checks if a word is valid according to the NYT Spelling Bee rules.
@@ -85,8 +85,8 @@ class NYTSpellingBeeBot:
         if word.find(self._required_letter) == -1:
             return False
 
-        for letter in word:
-            if self._invalid_letters.count(letter) > 0:
+        for LETTER in word:
+            if self._invalid_letters.count(LETTER) > 0:
                 return False
 
         return True
@@ -111,12 +111,12 @@ class NYTSpellingBeeBot:
         Each word from the _valid_words list is submitted & then backspaces the amount of letters.
         This is done because the game does not give and error if you submit a word that is not
         valid via the DOM"""
-        actions = ActionChains(self._driver)
+        ACTIONS = ActionChains(self._driver)
 
-        for word in self._valid_words:
-            actions.send_keys(word).send_keys(Keys.ENTER).perform()
-            for _ in range(len(word)):
-                actions.send_keys(Keys.BACKSPACE).perform()
+        for WORD in self._valid_words:
+            ACTIONS.send_keys(WORD).send_keys(Keys.ENTER).perform()
+            for _ in range(len(WORD)):
+                ACTIONS.send_keys(Keys.BACKSPACE).perform()
 
 
 if __name__ == "__main__":
