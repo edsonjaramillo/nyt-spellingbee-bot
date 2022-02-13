@@ -94,9 +94,9 @@ class NYTSpellingBeeBot:
     def get_invalid_letters(self) -> None:
         """
         Step 1:
-            Gets invalid letters from the puzzle.
+            Starts with full alphabet
         Step 2:
-            Starts with full alphabet & removes the required letter
+            Removes the required letter
         Step 3:
             Removes the other 6 possible letters. Doing so gives us the list of invalid letters."""
         alphabet = list("abcdefghijklmnopqrstuvwxyz")
