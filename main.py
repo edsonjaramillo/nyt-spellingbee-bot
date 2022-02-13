@@ -11,17 +11,17 @@ from customdriver import start_webdriver
 class NYTSpellingBeeBot:
     """This NYT Spelling Bee Bot can solve the puzzle and submit all valid words."""
     _driver: WebDriver
-    _required_letter: str
-    _other_letters: list
     _all_words: list
     _valid_words: list
+    _required_letter: str
+    _other_valid_letters: list
     _invalid_letters: list
 
     def __init__(self) -> None:
         """Initialize the webdriver and variables"""
         self._driver = start_webdriver()
         self._required_letter = ""
-        self._other_letters = []
+        self._other_valid_letters = []
         self._all_words = []
         self._valid_words = []
         self._invalid_letters = []
@@ -59,7 +59,7 @@ class NYTSpellingBeeBot:
             if INDEX == 0:
                 self._required_letter = LETTER.text.lower()
             else:
-                self._other_letters.append(LETTER.text.lower())
+                self._other_valid_letters.append(LETTER.text.lower())
 
     def get_all_words(self) -> None:
         """Reads all words from the words text file"""
@@ -101,7 +101,7 @@ class NYTSpellingBeeBot:
             Removes the other 6 possible letters. Doing so gives us the list of invalid letters."""
         alphabet = list("abcdefghijklmnopqrstuvwxyz")
         alphabet.remove(self._required_letter)
-        for letter in self._other_letters:
+        for letter in self._other_valid_letters:
             alphabet.remove(letter)
 
         self._invalid_letters = alphabet
