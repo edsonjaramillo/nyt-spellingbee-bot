@@ -3,3 +3,4 @@ Include
 Lib
 Scripts
 __pycache__
+pyenv.cfg
